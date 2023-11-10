@@ -1,0 +1,10 @@
+---
+- name: Atualizando Cache APT.
+  ansible.builtin.include_tasks: tasks/update-cache-apt.yml
+
+- name: Configurando Docker.
+  ansible.builtin.include_tasks: tasks/docker.yml
+
+- name: Configurando Internet Monitoring.
+  ansible.builtin.include_tasks: tasks/internet-monitoring.yml
+  when: monitoring_enable == true

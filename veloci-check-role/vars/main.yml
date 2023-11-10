@@ -1,0 +1,20 @@
+---
+# Local onde os arquivos serão armazenados no host (local ou remoto).
+config_dir: '~'
+
+# Configurações Internet monitoring.
+monitoring_enable: true
+monitoring_grafana_admin_password: "admin"
+monitoring_speedtest_interval: 30m
+monitoring_ping_interval: 5s
+monitoring_ping_hosts:  # [URL];[HUMAN_READABLE_NAME]
+  - http://www.google.com/;google.com
+  - https://github.com/;github.com
+  - https://www.apple.com/;apple.com
+
+# Configurações Prometheus.
+prometheus_monitor_prometheus: false
+prometheus_node_exporter_targets:
+  - 'nodeexp:9100'
+prometheus_extra_scrape_configs: ''
+prometheus_tsdb_retention_time: 90d

@@ -1,0 +1,53 @@
+---
+- name: Verificando se o Docker está instalado.
+  ansible.builtin.command: which docker
+  failed_when: false
+  changed_when: false
+  check_mode: false
+  register: docker_command_result
+
+- name: Download do script para instalacao do Docker.
+  ansible.builtin.get_url:
+    url: https://get.docker.com/
+    dest: /tmp/get-docker.sh
+    mode: 0775
+  when: docker_command_result.rc == 1
+
+- name: Executando script de instalacao do Docker.
+  ansible.builtin.command: /tmp/get-docker.sh
+  environment:
+    CHANNEL: stable
+  when: docker_command_result.rc == 1
+
+- name: Iniciando o Docker.
+  ansible.builtin.service:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Instalando dependências caso necessário (Debian)
+  ansible.builtin.apt:
+    name:
+      - libffi-dev
+      - libssl-dev
+      - python3-dev
+      - python3-pip
+      - git
+      - rsync
+    state: present
+  when: ansible_facts.os_family == "Debian"
+
+- name: Instalando o Docker Compose com Pip
+  ansible.builtin.pip:
+    name: docker-compose
+    state: present
+    executable: pip3
+
+- name: "Adicionando usuario ao grupo docker: {{ ansible_user }}"
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: true
+
+- name: Resetando conexao para que o grupo docker seja selecionado.
+  meta: reset_connection
