@@ -38,7 +38,7 @@ Acessando os serviços
 
 Exemplo
 > Acessando o Grafana, IP-HOST 10.0.0.1
-> http://10.0.0.1:3000
+>   - http://10.0.0.1:3000
 
 Senhas de acesso.
 > Senha padrão admin, no primeiro acesso é solicitada a troca de senha.
