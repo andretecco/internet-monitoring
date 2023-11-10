@@ -9,17 +9,39 @@ O diretório principal  `veloci-check` tem os arquivos necessários para instala
 Repositório
  - [internet-monitoring](https://github.com/andretecco/internet-monitoring)
 
->Portas mapeadas com o host
->  - Prometheus
-> 	 -  `9090:9090 (Docker:Host)`
-> - Grafana
-> 	 -  `3030:3000 (Docker:Host)`
+## Informações Adicionais
+-------------------------
+
+Portas mapeadas com o host
+>- Prometheus
+>  - `9090:9090 (Docker:Host)`
+>- Grafana
+>  - `3030:3000 (Docker:Host)`
 >- Ping (blackbox-exporter)
->	- `9115:9115 (Docker:Host)`
+>	 - `9115:9115 (Docker:Host)`
 >- Speedtest
->	- `9798:9798 (Docker:Host)`
+>	 - `9798:9798 (Docker:Host)`
 >- Nodeexp (Node Exporter)
-> 	- `9100:9100 (Docker:Host)`
+>  - `9100:9100 (Docker:Host)`
+
+Acessando os serviços
+>- Prometheus
+>  - `IP-HOST:9090`
+>- Grafana
+>  - `IP-HOST:3000`
+>- Ping (blackbox-exporter)
+>  - `IP-HOST:9115`
+>- Speedtest
+>  - `IP-HOST:9798`
+>- Nodeexp (Node Exporter)
+>  - `IP-HOST:9100`
+
+Exemplo
+> Acessando o Grafana, IP-HOST 10.0.0.1
+> http://10.0.0.1:3000
+
+Senhas de acesso.
+> Senha padrão admin, no primeiro acesso é solicitada a troca de senha.
 
 ## Configuração 
 -----------------
