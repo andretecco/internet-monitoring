@@ -14,7 +14,7 @@ Repositório
 Informações referente ao ambiente de testes utilizado.
 
 Este Playbook foi testado com a versão:
-- SO: Debian GNU/Linux 12 (bookworm) e Armbian 23.8.1 bullseye
+- SO: Debian GNU/Linux 12 (bookworm) e Armbian 23.8.1 (bullseye)
 - Ansible: 2.9
 
 > Para outras versões pode ser necessário alterar o nome dos pacotes e/ou acrescentar pacotes conforme a sua necessidade.
