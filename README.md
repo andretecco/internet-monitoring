@@ -7,7 +7,7 @@
 O diretório principal  `veloci-check` tem os arquivos necessários para instalação/configuração do projeto.
 
 Repositório
- - [veloci-check](https://github.com/andretecco/veloci-check)
+ - [internet-monitoring](https://github.com/andretecco/internet-monitoring)
 
 >Portas mapeadas com o host
 >  - Prometheus
