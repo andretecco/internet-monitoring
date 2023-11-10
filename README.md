@@ -11,6 +11,8 @@ Repositório
 
 ## Informações Adicionais
 -------------------------
+Configuração/Ajuste inicial
+>Colocar as informações corretas no arquivo hosts
 
 Portas mapeadas com o host
 >- Prometheus
