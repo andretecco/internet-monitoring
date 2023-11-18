@@ -48,11 +48,3 @@ jobs:
             severity: warn
             details: Cancelled!
             webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-
-      - name: Error
-        uses: rjstone/discord-webhook-notify@v1
-        if: error()
-        with:
-            severity: warn
-            details: Error!
-            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
