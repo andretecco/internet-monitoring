@@ -16,6 +16,7 @@ jobs:
   discord_message:
     name: Discord Message
     runs-on: ubuntu-latest
+    needs: ansible_lint
     steps:
       - name: Checkout
         uses: actions/checkout@v3
