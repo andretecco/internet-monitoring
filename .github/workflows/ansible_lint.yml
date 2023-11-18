@@ -21,6 +21,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Determine Status
+        id: determine_status
+        run: echo "::set-output name=status::${{ job.status }}"
+
       - name: Success
         uses: rjstone/discord-webhook-notify@v1
         if: success()
@@ -43,4 +47,12 @@ jobs:
         with:
             severity: warn
             details: Cancelled!
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
+      - name: Error
+        uses: rjstone/discord-webhook-notify@v1
+        if: error()
+        with:
+            severity: warn
+            details: Error!
             webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
