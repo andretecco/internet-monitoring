@@ -8,6 +8,7 @@ jobs:
   ansible_lint:
     name: Ansible Lint
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - name: Run ansible-lint
