@@ -25,26 +25,34 @@ jobs:
         id: determine_status
         run: echo "::set-output name=status::${{ job.status }}"
 
-      - name: Success
+      - name: Notify Discord
         uses: rjstone/discord-webhook-notify@v1
-        if: success()
+        if: steps.determine_status.outputs.status == 'failure'
         with:
-            severity: info
-            details: Succeeded!
-            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          severity: error
+          details: Failed!
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
+#      - name: Success
+#        uses: rjstone/discord-webhook-notify@v1
+#        if: success()
+#        with:
+#            severity: info
+#            details: Succeeded!
+#            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
         
-      - name: Failure
-        uses: rjstone/discord-webhook-notify@v1
-        if: failure()
-        with:
-            severity: error
-            details: Failed!
-            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-        
-      - name: Cancelled
-        uses: rjstone/discord-webhook-notify@v1
-        if: cancelled()
-        with:
-            severity: warn
-            details: Cancelled!
-            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+#      - name: Failure
+#        uses: rjstone/discord-webhook-notify@v1
+#        if: failure()
+#        with:
+#            severity: error
+#            details: Failed!
+#            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+#        
+#      - name: Cancelled
+#        uses: rjstone/discord-webhook-notify@v1
+#        if: cancelled()
+#        with:
+#            severity: warn
+#            details: Cancelled!
+#            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
