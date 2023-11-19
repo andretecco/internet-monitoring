@@ -108,7 +108,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: ansible-lint-results
-          path: output
+          path: ./output.txt
       - name: Exibir Saída
         run: cat output
 
