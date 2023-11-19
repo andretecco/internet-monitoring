@@ -95,6 +95,7 @@ jobs:
 
   ansible_lint_output:
     runs-on: ubuntu-latest
+    if: ${{ always() }}
     needs: build_ansible_lint
     steps:
       - env:
