@@ -1,13 +1,24 @@
 ---
-name: actions_discord
+name: ansible-lint
 on:
-  push:
+  pull_request:
     branches:
       - main
+      - 'releases/**'
 jobs:
+  build_ansible_lint:
+    name: Ansible Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run ansible-lint
+        uses: ansible/ansible-lint@v6
+
   discord_message:
     name: Discord Message
     runs-on: ubuntu-latest
+    if: ${{ always() }}
+    needs: build_ansible_lint
     steps:
       - name: Checkout
         uses: actions/checkout@v3
