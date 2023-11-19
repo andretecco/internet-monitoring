@@ -4,4 +4,4 @@
   gather_facts: true
   become: true
   roles:
-    - veloci-check-role
+    - veloci-check

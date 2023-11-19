@@ -24,27 +24,27 @@ Configuração/Ajuste inicial
 
 Portas mapeadas com o host
 >- Prometheus
->  - `9090:9090 (Docker:Host)`
+>   - `9090:9090 (Docker:Host)`
 >- Grafana
->  - `3030:3000 (Docker:Host)`
+>   - `3030:3000 (Docker:Host)`
 >- Ping (blackbox-exporter)
 >	 - `9115:9115 (Docker:Host)`
 >- Speedtest
 >	 - `9798:9798 (Docker:Host)`
 >- Nodeexp (Node Exporter)
->  - `9100:9100 (Docker:Host)`
+>   - `9100:9100 (Docker:Host)`
 
 Acessando os serviços
 >- Prometheus
->  - `IP-HOST:9090`
+>   - `IP-HOST:9090`
 >- Grafana
->  - `IP-HOST:3000`
+>   - `IP-HOST:3000`
 >- Ping (blackbox-exporter)
->  - `IP-HOST:9115`
+>   - `IP-HOST:9115`
 >- Speedtest
->  - `IP-HOST:9798`
+>   - `IP-HOST:9798`
 >- Nodeexp (Node Exporter)
->  - `IP-HOST:9100`
+>   - `IP-HOST:9100`
 
 Exemplo
 > Acessando o Grafana, IP-HOST 10.0.0.1
