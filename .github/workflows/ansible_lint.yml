@@ -97,7 +97,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ansible-lint-results
-          path: ${{ steps.ansible-lint-execute.outputs.output }}
+          path: ansible-lint-results.txt
 
   ansible_lint_output:
     runs-on: ubuntu-latest
@@ -108,10 +108,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: ansible-lint-results
-          path: ${{ steps.ansible-lint-execute.outputs.output }}
+          path: ansible-lint-results.txt
       - name: Exibir Saída
         run: |
-          value=`cat ${{ steps.ansible-lint-execute.outputs.output }}`
+          value=`cat ansible-lint-results.txt`
           echo $value
 
   discord_message:
