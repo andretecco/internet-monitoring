@@ -97,7 +97,7 @@ jobs:
 
       - name: Check Ansible Lint exit code and send Discord message on failure
         run: |
-          if [ ${{ needs.build_ansible_lint.outputs.exitcode }} -eq 2 ]; then
+          if [ ${{ needs.build_ansible_lint.outputs }} -eq 2 ]; then
             echo "Ansible Lint failed with exit code 2. Sending Discord message."
             # Use the appropriate Discord action, replace 'rjstone/discord-webhook-notify' with the actual action you want to use
             # You may need to provide additional parameters such as the Discord webhook URL
@@ -110,4 +110,4 @@ jobs:
           fi
         env:
           # Pass the Ansible Lint exit code as an output variable
-          ANSIBLE_LINT_EXIT_CODE: ${{ needs.build_ansible_lint.outputs.exitcode }}
+          ANSIBLE_LINT_EXIT_CODE: ${{ needs.build_ansible_lint.outputs }}
