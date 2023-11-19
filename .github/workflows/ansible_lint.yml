@@ -1,69 +1,4 @@
 ---
-#name: ansible-lint
-#on: 
-#  push:
-#    branches:
-#      - '*'
-#      - '!main'
-#
-#  pull_request:
-#    branches:
-#      - '*'
-#      - '!main'
-#jobs:
-#  build_ansible_lint:
-#    name: Ansible Lint
-#    runs-on: ubuntu-latest
-#    outputs:
-#      output: ${{ steps.step_lint.outputs.test }}
-#    steps:
-#      - uses: actions/checkout@v4
-#      - name: Run ansible-lint
-#        uses: ansible/ansible-lint@v6
-#        id: step_lint
-#
-#  output_ansible_lint:
-#    runs-on: ubuntu-latest
-#    if: ${{ always() }}
-#    needs: build_ansible_lint
-#    steps:
-#      - env:
-#          OUTPUT1: ${{needs.build_ansible_lint.outputs.output}}
-#        run: echo "$OUTPUT1"
-#
-#  discord_message:
-#    name: Discord Message
-#    runs-on: ubuntu-latest
-#    if: ${{ always() }}
-#    needs: build_ansible_lint
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v3
-#
-#      - name: Success
-#        uses: rjstone/discord-webhook-notify@v1
-#        if: success()
-#        with:
-#            severity: info
-#            details: Succeeded!
-#            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-#        
-#      - name: Failure
-#        uses: rjstone/discord-webhook-notify@v1
-#        if: failure()
-#        with:
-#            severity: error
-#            details: Failed!
-#            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-#        
-#      - name: Cancelled
-#        uses: rjstone/discord-webhook-notify@v1
-#        if: cancelled()
-#        with:
-#            severity: warn
-#            details: Cancelled!
-#            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-
 name: ansible-lint
 on: 
   push:
@@ -89,58 +24,15 @@ jobs:
       - name: Executando Lint
         id: ansible-lint-execute
         run: |
-          ansible-lint >> "$GITHUB_OUTPUT"
-      - name: Persistir Artefatos
+          ansible-lint
+
+      - name: Discord Message
+        uses: th0th/notify-discord@v0.4.1
         if: ${{ always() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: ansible-lint-results
-          path: ansible-lint-results.txt
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_JOB_NAME: "Build and deploy"
+          GITHUB_JOB_STATUS: ${{ job.status }}
 
-  ansible_lint_output:
-    runs-on: ubuntu-latest
-    if: ${{ always() }}
-    needs: build_ansible_lint
-    steps:
-      - name: Baixar Artefatos
-        uses: actions/download-artifact@v2
-        with:
-          name: ansible-lint-results
-          path: ansible-lint-results.txt
-      - name: Exibir Saída
-        run: |
-          value=`cat ansible-lint-results.txt`
-          echo $value
-
-  discord_message:
-    name: Discord Message
-    runs-on: ubuntu-latest
-    if: ${{ always() }}
-    needs: build_ansible_lint
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Success
-        uses: rjstone/discord-webhook-notify@v1
-        if: success()
-        with:
-            severity: info
-            details: Succeeded!
-            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-        
-      - name: Failure
-        uses: rjstone/discord-webhook-notify@v1
-        if: failure()
-        with:
-            severity: error
-            details: Failed!
-            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-        
-      - name: Cancelled
-        uses: rjstone/discord-webhook-notify@v1
-        if: cancelled()
-        with:
-            severity: warn
-            details: Cancelled!
-            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+#    needs: build_ansible_lint

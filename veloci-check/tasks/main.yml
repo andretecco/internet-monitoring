@@ -7,4 +7,4 @@
 
 - name: Configurando Internet Monitoring.
   ansible.builtin.include_tasks: tasks/internet-monitoring.yml
-  when: monitoring_enable == true
+  when: monitoring_enable
