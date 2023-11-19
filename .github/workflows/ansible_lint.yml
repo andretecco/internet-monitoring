@@ -4,11 +4,9 @@ on:
   push:
     branches:
       - '*'
-      - '!main'
   pull_request:
     branches:
       - '*'
-      - '!main'
 jobs:
   build_ansible_lint:
     name: Ansible Lint # Naming the build is important to use it as a status check
@@ -17,20 +15,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run ansible-lint
         uses: ansible/ansible-lint@v6
-#    name: Ansible Lint
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v4
-#      - name: Instalando dependencias
-#        id: ansible-lint-install
-#        run: |
-#          python3 -m pip install --upgrade pip
-#          python3 -m pip install ansible-lint
-#      - name: Executando Lint
-#        id: ansible-lint-execute
-#        run: |
-#          ansible-lint
 
       - name: Discord Message
         uses: th0th/notify-discord@v0.4.1
