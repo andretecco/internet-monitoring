@@ -1,6 +1,6 @@
 ---
 name: ansible-lint
-on: 
+on:
   push:
     branches:
       - '*'
@@ -34,5 +34,3 @@ jobs:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_JOB_NAME: "Build and deploy"
           GITHUB_JOB_STATUS: ${{ job.status }}
-
-#    needs: build_ansible_lint
