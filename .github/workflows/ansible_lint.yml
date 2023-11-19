@@ -78,8 +78,6 @@ jobs:
   build_ansible_lint:
     name: Ansible Lint
     runs-on: ubuntu-latest
-    outputs:
-      output: ${{ steps.ansible-lint-execute.outputs.output }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
