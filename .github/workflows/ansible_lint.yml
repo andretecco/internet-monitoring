@@ -93,39 +93,44 @@ jobs:
         run: |
           ansible-lint >> "$GITHUB_OUTPUT"
 
-  ansible_lint_output:
+#  ansible_lint_output:
+#    runs-on: ubuntu-latest
+#    if: ${{ always() }}
+#    needs: build_ansible_lint
+#    steps:
+#      - env:
+#          OUTPUT1: ${{ needs.build_ansible_lint.outputs.output }}
+#        run: echo "$OUTPUT1"
+
+  discord_message:
+    name: Discord Message
     runs-on: ubuntu-latest
     if: ${{ always() }}
     needs: build_ansible_lint
     steps:
-      - env:
-          OUTPUT1: ${{ needs.build_ansible_lint.outputs.output }}
-        run: echo "$OUTPUT1"
+      - name: Checkout
+        uses: actions/checkout@v3
 
-
-#  discord_message:
-#    name: Discord Message
-#    runs-on: ubuntu-latest
-##    if: ${{ needs.build_ansible_lint.result == 'failure' }}
-#    if: ${{ always() }}
-#    needs: build_ansible_lint
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v3
-#
-#      - name: Check Ansible Lint exit code and send Discord message on failure
-#        run: |
-#          if [ ${{ needs.build_ansible_lint.outputs }} -eq 2 ]; then
-#            echo "Ansible Lint failed with exit code 2. Sending Discord message."
-#            # Use the appropriate Discord action, replace 'rjstone/discord-webhook-notify' with the actual action you want to use
-#            # You may need to provide additional parameters such as the Discord webhook URL
-#            # For example:
-#            uses: rjstone/discord-webhook-notify@v1
-#            with:
-#              severity: error
-#              details: Ansible Lint failed with exit code 2
-#              webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-#          fi
-#        env:
-#          # Pass the Ansible Lint exit code as an output variable
-#          ANSIBLE_LINT_EXIT_CODE: ${{ needs.build_ansible_lint.outputs }}
+      - name: Success
+        uses: rjstone/discord-webhook-notify@v1
+        if: success()
+        with:
+            severity: info
+            details: Succeeded!
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+        
+      - name: Failure
+        uses: rjstone/discord-webhook-notify@v1
+        if: failure()
+        with:
+            severity: error
+            details: Failed!
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+        
+      - name: Cancelled
+        uses: rjstone/discord-webhook-notify@v1
+        if: cancelled()
+        with:
+            severity: warn
+            details: Cancelled!
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
