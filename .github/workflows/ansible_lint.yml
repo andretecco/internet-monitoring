@@ -102,11 +102,11 @@ jobs:
             # Use the appropriate Discord action, replace 'rjstone/discord-webhook-notify' with the actual action you want to use
             # You may need to provide additional parameters such as the Discord webhook URL
             # For example:
-            # uses: rjstone/discord-webhook-notify@v1
-            # with:
-            #   severity: error
-            #   details: Ansible Lint failed with exit code 2
-            #   webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+            uses: rjstone/discord-webhook-notify@v1
+            with:
+              severity: error
+              details: Ansible Lint failed with exit code 2
+              webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
           fi
         env:
           # Pass the Ansible Lint exit code as an output variable
