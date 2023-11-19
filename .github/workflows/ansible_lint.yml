@@ -79,7 +79,7 @@ jobs:
     name: Ansible Lint
     runs-on: ubuntu-latest
     outputs:
-      output: ${{ steps.ansible-lint-execute.outputs }}
+      output: ${{ steps.ansible-lint-execute.outputs.output }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -99,7 +99,7 @@ jobs:
     needs: build_ansible_lint
     steps:
       - env:
-          OUTPUT1: ${{ needs.build_ansible_lint.outputs }}
+          OUTPUT1: ${{ needs.build_ansible_lint.outputs.output }}
         run: echo "$OUTPUT1"
 
 
