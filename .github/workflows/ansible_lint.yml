@@ -92,15 +92,25 @@ jobs:
         id: ansible-lint-execute
         run: |
           ansible-lint >> "$GITHUB_OUTPUT"
+      - name: Persistir Artefatos
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: ansible-lint-results
+          path: ${{ steps.ansible-lint-execute.outputs.output }}
 
-#  ansible_lint_output:
-#    runs-on: ubuntu-latest
-#    if: ${{ always() }}
-#    needs: build_ansible_lint
-#    steps:
-#      - env:
-#          OUTPUT1: ${{ needs.build_ansible_lint.outputs.output }}
-#        run: echo "$OUTPUT1"
+  ansible_lint_output:
+    runs-on: ubuntu-latest
+    if: ${{ always() }}
+    needs: build_ansible_lint
+    steps:
+      - name: Baixar Artefatos
+        uses: actions/download-artifact@v2
+        with:
+          name: ansible-lint-results
+          path: output
+      - name: Exibir Saída
+        run: cat output
 
   discord_message:
     name: Discord Message
